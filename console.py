@@ -1,8 +1,11 @@
 #!/usr/bin/python3
+'''import cammand interpreter'''
 import cmd
 
 
 class HBNBCommand(cmd.Cmd):
+    '''Start command processing'''
+
     # public class attributes
     prompt = '(hbnb)'
 
