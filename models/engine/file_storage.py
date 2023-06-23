@@ -3,18 +3,19 @@
 import json
 import os
 
+
 class FileStorage:
     ''' Serializes and deserializes JSON objects'''
     # private class attributes
     __file_path = "file.json"
     __objects = {}
-    models = ('BaseModel', 'Amenity', 'User', 'City', 'State', 'Place', 'Review')
+    more = ('State', 'Place', 'Review')
+    models = ('BaseModel', 'Amenity', 'User', 'City', 'more')
 
     def __init__(self, *args,  **kwargs):
         '''Constructor for the class'''
         pass
 
-    
     def all(self):
         '''Return dictionary __object__objects'''
         return self.__objects
@@ -58,8 +59,8 @@ class FileStorage:
                 if instance_id == value.id:
                     return value
         else:
-           return None
-    
+            return None
+
     def delete_by_id(self, class_name, instance_id):
         '''delete an instance from the database by id'''
         for key, value in FileStorage.__objects.items():
@@ -68,7 +69,7 @@ class FileStorage:
                     del FileStorage.__objects[key]
                     break
         self.save()
-    
+
     def get_all(self, model=''):
         '''find all instances of a model or give model'''
         if model and model not in FileStorage.models:
