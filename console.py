@@ -4,7 +4,14 @@ import shlex
 from cmd import Cmd
 from models.base_model import BaseModel
 from models import storage
+from models.user import Uetr
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 clist = storage.models
+
 
 class HBNBCommand(Cmd):
     '''Start command processing'''
@@ -26,9 +33,9 @@ class HBNBCommand(Cmd):
         pass
 
     def do_create(self, args):
-        ''' Create a new instance of BaseModel, save it to json file and prints the id'''
+        ''' Create a new instance of BaseModel'''
         args, num = parse(args, ' ')
-        
+
         if not args:
             print("** class name missing **")
         elif args[0] not in clist:
@@ -57,7 +64,6 @@ class HBNBCommand(Cmd):
             print("** no instance found **")
         print(instance)
 
-
     def do_destroy(self, args):
         args, num = parse(args, ' ')
 
@@ -65,18 +71,18 @@ class HBNBCommand(Cmd):
             print("** class name missing **")
         class_name = args[0]
         if args[0] not in clist:
-             print("** class doesn't exist **")
+            print("** class doesn't exist **")
         elif num < 2:
-             print("** instance id missing **")
+            print("** instance id missing **")
         if num == 2:
             storage.delete_by_id(*args)
         else:
-             print("** no instance found **")
-    
+            print("** no instance found **")
+
     def do_all(self, args):
         args, num = parse(args, ' ')
 
-        if num < 2 :
+        if num < 2:
             print(storage.get_all(*args))
         else:
             print("** Too many argument for all **")
@@ -87,9 +93,9 @@ class HBNBCommand(Cmd):
         args, num = parse(args, ' ')
 
         if not num:
-            print ("** class name missing **")
+            print("** class name missing **")
         elif args[0] not in clist:
-            print ("** class doesn't exist **")
+            print("** class doesn't exist **")
         elif num == 1:
             print("** instance id missing **")
         elif num == 2:
@@ -113,20 +119,17 @@ class HBNBCommand(Cmd):
                 print("** attribute name cannot be updated **")
 
 
-
-
-def parse(args, delimeter):
+def parse(args, sep):
     '''
         Parses the command line arguments base on the provided delimeterl.
         Args:
         args(list): list of cammand line arguments.
         delimeter(str): comma and space.
 
-        Returns:
-            tuple: A tuple containing the updated arguments list and the number of arguments.
+        Returns: A tuple of list of arguments and numbers
     '''
     parsed_args = []
-    for arg in args.split(delimeter):
+    for arg in args.split(sep):
         parsed_args.append(arg)
     return parsed_args, len(parsed_args)
 

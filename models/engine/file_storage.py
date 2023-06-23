@@ -8,7 +8,7 @@ class FileStorage:
     # private class attributes
     __file_path = "file.json"
     __objects = {}
-    models = ('BaseModel', 'Amenity')
+    models = ('BaseModel', 'Amenity', 'User', 'City', 'State', 'Place', 'Review')
 
     def __init__(self, *args,  **kwargs):
         '''Constructor for the class'''
@@ -36,6 +36,7 @@ class FileStorage:
     def reload(self):
         ''' Desializes JSON file to __objects'''
         from models.base_model import BaseModel
+        from models.user import User
 
         try:
             with open(self.__file_path, "r") as file:
