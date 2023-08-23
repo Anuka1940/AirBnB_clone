@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My webpage</title>
+        <link rel="stylesheet" href="styles/4-common.css">
+        <link rel="stylesheet" href="styles/3-header.css">
+        <link rel="stylesheet" href="styles/3-footer.css"> 
+        <link rel="stylesheet" href="styles/6-filters.css"> 
+        <link rel="stylesheet" href="styles/8-filters.css">
+	<link rel="icon" href="images/logo" type="image/png">
+        
+    </head>
+    <body>
+        <header>
+            <div class="logo"></div>
+        </header>
+        <section class="container">
+            <div class="filters">
+                <div class="locations" onmousemove="showDropdown(this)" onmouseout="hideDropdown(this)">
+                    <h3>States</h3>
+                    <h4>Subtitle with a fake contents</h4>
+                    <ul class="popover">
+                        <li>
+                            <h2> State Name 1</h2>
+                            <ul>
+                                <li> City 1</li>
+                                <li> City 2</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h2>State Name 2</h2>
+                            <ul>
+                                <li>City 3</li>
+                                <li>City 4</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="amenities" onmouseover="showDropdown(this)" onmouseout="hideDropdown(this)">
+                    <h3>Amenities</h3>
+                    <h4>Subtitle with fake contents</h4>
+                    <ul class="popover">
+                        <li>Amenity 1</li>
+                        <li>Amenity 2</li>
+                        <li>Amenity 3</li>
+                    </ul>   
+                </div>
+
+                <button class="search-bottun">Search</button>
+            </div>
+        </section>
+        <section class="places">
+            <hi>Places</hi>
+
+            <article>
+                <div class="title">
+                    <h2>Place Name 1</h2>
+                    <div class="price_by_night">$100</div>
+                </div>
+                <div class="information">
+                    <div class="max_guest">
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                        <br>Number of guests: 4
+                    </div>
+                    <div class="Number_rooms">
+                        <i class="fa fa-bed" aria-hidden="true"></i>
+                        <br>Number of bed: 2
+                    </div>
+                    <div class="Number_bathrooms">
+                        <i class="fa fa-bath" aria-hidden="true"></i>
+                        <br>Number of bathrooms: 1
+                    </div>
+                </div>
+                <div class="user">
+                    Owner: <strong>Abdul-Lateef</strong>
+                </div>
+                <h2>Place Name 1</h2>
+                <div class="description">
+                    description: large room and good ventilation. Air conditioning avialible.
+                </div>
+            </article>
+            <article>
+                <h2>Place Name 2</h2>   
+            </artcle>
+        </section>
+        
+        <footer>
+            <p>Best School</p>
+        </footer>
+
+        <script>
+            function showDropdown(element) {
+                element.querySelector(".popover").style.display = "block";
+            }
+
+            function hideDropdown(element) {
+                element.querySelector(".popover").style.display = "none";
+            }
+        </script>
+    </body>
+</html>

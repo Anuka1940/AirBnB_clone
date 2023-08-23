@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My webpage</title>
+        <link rel="stylesheet" href="styles/4-common.css">
+        <link rel="stylesheet" href="styles/3-header.css">
+        <link rel="stylesheet" href="styles/3-footer.css"> 
+        <link rel="stylesheet" href="styles/6-filters.css"> 
+        <link rel="icon" href="images/hbnb.png">
+    </head>
+    <body>
+        <header>
+            <div class="logo"></div>
+        </header>
+        <section class="container">
+            <div class="filters">
+                <div class="locations" onmousemove="showDropdown(this)" onmouseout="hideDropdown(this)">
+                    <h3>States</h3>
+                    <h4>Subtitle with a fake contents</h4>
+                    <ul class="popover">
+                        <li>
+                            <h2>Arizona...</h2>
+                            <ul>
+                                <li> page 1</li>
+                                <li> page 2</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h2>California:</h2>
+                            <ul>
+                                <li>San Francisco</li>
+                                <li>Los Altos</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="amenities" onmouseover="showDropdown(this)" onmouseout="hideDropdown(this)">
+                    <h3>Amenities</h3>
+                    <h4>Internet, Kitchen...</h4>
+                    <ul class="popover">
+                        <li>Internet</li>
+                        <li>TV</li>
+                        <li>Kitchen</li>
+                    </ul>   
+                </div>
+
+                <button class="search-bottun">Search</button>
+            </div>
+        </section>
+        
+        <footer>
+            <p>Best School</p>
+        </footer>
+
+        <script>
+            function showDropdown(element) {
+                element.querySelector(".popover").style.display = "block";
+            }
+
+            function hideDropdown(element) {
+                element.querySelector(".popover").style.display = "none";
+            }
+        </script>
+    </body>
+</html>

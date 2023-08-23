@@ -22,10 +22,10 @@ class BaseModel:
                 if key != '__class__':
                     setattr(self, key, value)
 
-
     def __str__(self):
         '''Override default __str__ method'''
-        return ("[{}] ({}) {}".format(type(self).__name__, self.id, self.__dict__))
+        fmt = '[{}] ({}) {}'
+        return (fmt.format(type(self).__name__, self.id, self.__dict__))
 
     def save(self):
         '''Update updated_at with current datetime'''
@@ -37,7 +37,7 @@ class BaseModel:
         new_dict = {}
         new_dict["__class__"] = self.__class__.__name__
         for key, value in self.__dict__.items():
-            if key in ['created_at','updated_at']:
+            if key in ['created_at', 'updated_at']:
                 new_dict[key] = value.isoformat()
             else:
                 new_dict[key] = value

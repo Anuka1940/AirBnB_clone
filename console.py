@@ -4,7 +4,7 @@ import shlex
 from cmd import Cmd
 from models.base_model import BaseModel
 from models import storage
-from models.user import Uetr
+from models.user import User
 from models.state import State
 from models.city import City
 from models.amenity import Amenity
@@ -49,6 +49,7 @@ class HBNBCommand(Cmd):
             pass
 
     def do_show(self, args):
+        '''Show instance of a class by id'''
         args, num = parse(args, ' ')
 
         if not args:
@@ -65,6 +66,7 @@ class HBNBCommand(Cmd):
         print(instance)
 
     def do_destroy(self, args):
+        ''' Delete instance of a class by name and id'''
         args, num = parse(args, ' ')
 
         if not args:
@@ -80,6 +82,7 @@ class HBNBCommand(Cmd):
             print("** no instance found **")
 
     def do_all(self, args):
+        '''Print all models in database'''
         args, num = parse(args, ' ')
 
         if num < 2:
