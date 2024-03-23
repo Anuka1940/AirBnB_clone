@@ -1,81 +1,72 @@
-#!/usr/bin/python
-''' Module to  serializes and deserializes instances to/from JSON file'''
+#!/usr/bin/python3
+"""
+0x00. AirBnB clone - The console
+FileStorage class module
+"""
 import json
-import os
+from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class FileStorage:
-    ''' Serializes and deserializes JSON objects'''
-    # private class attributes
-    __file_path = "file.json"
-    __objects = {}
-    more = ('State', 'Place', 'Review')
-    models = ('BaseModel', 'Amenity', 'User', 'City', 'more')
+    """
+    Class that serializes object/instances to a JSON file
+    and deserializes JSON file to objects/instances
+    """
 
-    def __init__(self, *args,  **kwargs):
-        '''Constructor for the class'''
-        pass
+    __file_path = 'file.json'
+    __objects = {}
+    className = {'BaseModel': BaseModel,
+                 'User': User,
+                 'State': State,
+                 'City': City,
+                 'Amenity': Amenity,
+                 'Place': Place,
+                 'Review': Review}
 
     def all(self):
-        '''Return dictionary __object__objects'''
-        return self.__objects
+        """
+        function that returns the dictionary __objects
+        """
+        return FileStorage.__objects
 
     def new(self, obj):
-        ''' method to set in __objects the with key <obj class name >.id'''
-        key = type(obj).__name__ + '.' + obj.id
+        """
+        function that sets in __objects the obj with key <obj class name>.id
+        """
+        key = '{}.{}'.format(obj.__class__.__name__, obj.id)
         FileStorage.__objects[key] = obj
 
     def save(self):
-        '''Serializes __objects to json'''
-        serialized_objects = {}
-        for key, obj in self.__objects.items():
-            serialized_objects[key] = obj.to_dict()
-
-        with open(self.__file_path, "w") as file:
-            json.dump(serialized_objects, file)
+        """
+        function that serializes __objects to the JSON file
+        (path: __file_path); new_dict is a new dictionary in which
+        the objects/instances have been replaced by their respective
+        dictionary representation using the to_dict method from BaseModel
+        """
+        new_dict = {}
+        for key, obj in FileStorage.__objects.items():
+            new_dict[key] = obj.to_dict()
+        with open(FileStorage.__file_path, 'w') as f:
+            f.write(json.dumps(new_dict))
 
     def reload(self):
-        ''' Desializes JSON file to __objects'''
-        from models.base_model import BaseModel
-        from models.user import User
-
+        """
+        function that deserializes the JSON file to __objects
+        """
         try:
-            with open(self.__file_path, "r") as file:
-                serialized_objects = json.load(file)
-                from models.base_model import BaseModel
-
-                for key, value in serialized_objects.items():
-                    print("{} {}".format(key, value))
-                    class_name, obj_id = key.split(".")
-                    class_ = eval(class_name)
-                    self.__objects[key] = class_(**value)
+            with open(FileStorage.__file_path, 'r') as f:
+                f_contents = f.read()
+                dict_obj_dicts = json.loads(f_contents)
+            for key in dict_obj_dicts.keys():
+                obj_dict = dict_obj_dicts[key]
+                # FileStorage.__objects[key] = BaseModel(**obj_dict)
+                FileStorage.__objects[key] = FileStorage\
+                           .className[key.split('.')[0]](**obj_dict)
         except FileNotFoundError:
             pass
-
-    def get_instance(self, class_name, instance_id):
-        '''Retrieve an instance based on the class name and instances'''
-        for key, value in FileStorage.__objects.items():
-            if class_name + '.' + instance_id == key:
-                if instance_id == value.id:
-                    return value
-        else:
-            return None
-
-    def delete_by_id(self, class_name, instance_id):
-        '''delete an instance from the database by id'''
-        for key, value in FileStorage.__objects.items():
-            if class_name + '.' + instance_id == key:
-                if instance_id == value.id:
-                    del FileStorage.__objects[key]
-                    break
-        self.save()
-
-    def get_all(self, model=''):
-        '''find all instances of a model or give model'''
-        if model and model not in FileStorage.models:
-            raise ModelNotFoundError(model)
-        result = []
-        for key, value in FileStorage.__objects.items():
-            if key.startswith(model):
-                result.append(str(value))
-        return result
